@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace Moovielist.Controllers
 {
@@ -13,10 +14,15 @@ namespace Moovielist.Controllers
         // GET: Usuario
         public ActionResult Index()
         {
+            List<Item> a = new List<Item>();
             using(MeuContexto ctx = new MeuContexto())
             {
-                return View(ctx.Usuarios.ToList());
+                if (Session["UserID"] != null)
+                {
+                    a = ctx.Itens.Include(i => i._Livro).ToList();
+                }
             }
+            return View(a);
         }
 
         public ActionResult Registrar()
@@ -65,6 +71,20 @@ namespace Moovielist.Controllers
             }
             return View();
         }
+
+        public ActionResult Logout(Usuario usuario)
+        {
+            Session.Clear();
+            return RedirectToAction("Login");
+        }
+
+        //[HttpPost]
+        //public ActionResult Logout()
+        //{
+        //    Session.Clear();
+
+        //    return RedirectToAction("Login");
+        //}
 
         public ActionResult Logado()
         {

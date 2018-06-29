@@ -206,6 +206,7 @@
     <Content Include="Views\Usuario\Registrar.cshtml" />
     <Content Include="Views\Usuario\Login.cshtml" />
     <Content Include="Views\Usuario\Logado.cshtml" />
+    <Content Include="Views\Usuario\Logout.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

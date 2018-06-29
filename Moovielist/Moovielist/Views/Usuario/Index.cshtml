@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Moovielist.Models.Usuario>
+﻿@model IEnumerable<Moovielist.Models.Item>
 
 @{
     ViewBag.Title = "Index";
@@ -12,10 +12,8 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Username)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Pass)
+            @Html.DisplayNameFor(model => model.Estado)
+            @Html.DisplayNameFor(model => model._Livro)
         </th>
         <th></th>
     </tr>
@@ -23,15 +21,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Username)
+            @Html.DisplayFor(modelItem => item.Estado)
+            @Html.DisplayFor(modelItem => item._Livro.Livro_nome)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Pass)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.UsuarioID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UsuarioID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.UsuarioID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.ItemID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ItemID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ItemID })
         </td>
     </tr>
 }
