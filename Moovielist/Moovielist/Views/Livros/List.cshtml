@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Moovielist.Models.ViewModel.LivrosModel>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>Lista Geral</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model._Livro)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Acao)
+            @Html.DisplayFor(modelItem => item._Livro.Livro_nome)
+        </td>
+        <td>
+            @if (Session["UserID"] != null)
+            {
+                if (item.Acao)
+                {
+                    @Html.ActionLink("Editar", "Edit", new { id = item._Livro.LivroID })
+                    <h2></h2>
+                    @Html.ActionLink("Remover", "Delete", new { id = item._Livro.LivroID })
+                }
+                else
+                {
+                    @Html.ActionLink("Adicionar", "Add", new { id = item._Livro.LivroID })
+                }
+            }
+        </td>
+    </tr>
+}
+
+</table>

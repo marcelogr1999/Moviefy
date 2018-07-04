@@ -1,0 +1,40 @@
+﻿@model Moovielist.Models.ViewModel.EditarViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Excluir</h2>
+
+<h3>Tem certeza que quer remover este item?</h3>
+<div>
+    <hr />
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(m => m._item.ItemID)
+        @Html.HiddenFor(m => m._item.Livro.LivroID)
+        @Html.HiddenFor(m => m._item.Livro.Livro_nome)
+
+        <table>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(m => m._item.Livro)
+                </th>
+
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => m._item.Livro.Livro_nome)
+                </td>
+            </tr>
+        </table>
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

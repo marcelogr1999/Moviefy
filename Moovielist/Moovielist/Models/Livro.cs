@@ -9,12 +9,12 @@ namespace Moovielist.Models
     {
         public int LivroID { get; set; }
         public String Livro_nome { get; set; }
-        public Genero _Genero { get; set; }
+        public virtual Genero _Genero { get; set; }
 
-        public Livro()
-        {
-            _Genero = new Genero();
-        }
+        //public Livro()
+        //{
+        //    _Genero = new Genero();
+        //}
     }
 
 }

@@ -1,19 +1,20 @@
 ﻿@model IEnumerable<Moovielist.Models.Item>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lista Pessoal";
 }
 
-<h2>Index</h2>
+<h2>Lista Pessoal</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.Livro)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Estado)
-            @Html.DisplayNameFor(model => model._Livro)
         </th>
         <th></th>
     </tr>
@@ -21,13 +22,14 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Estado)
-            @Html.DisplayFor(modelItem => item._Livro.Livro_nome)
+            @Html.DisplayFor(modelItem => item.Livro.Livro_nome)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ItemID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ItemID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ItemID })
+            @Html.DisplayFor(modelItem => item.Estado)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.ItemID }) |
+            @Html.ActionLink("Remover", "Delete", new { id = item.Livro.LivroID })
         </td>
     </tr>
 }

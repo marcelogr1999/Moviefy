@@ -14,6 +14,11 @@ namespace Moovielist.Models
         public String Username{ get; set; }
         [Required(ErrorMessage = "Senha é necessária")]
         public String Pass { get; set; }
-        public List<Item> ListaUsuario { get; set; }
+        public virtual List<Item> ListaUsuario { get; set; }
+
+        //public Usuario()
+        //{
+        //    ListaUsuario = new List<Item>();
+        //}
     }
 }

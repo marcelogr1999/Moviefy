@@ -1,0 +1,38 @@
+﻿@model Moovielist.Models.ViewModel.EditarViewModel
+
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>EditarViewModel</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m._item.ItemID)
+    @Html.HiddenFor(m => m._item.Livro.LivroID)
+    @Html.HiddenFor(m => m._item.Livro.Livro_nome)
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.DropDownListFor(p => p.SelectedValue, Model.ItemsInDropDown)
+            
+
+        </div>
+    </div>
+</div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
