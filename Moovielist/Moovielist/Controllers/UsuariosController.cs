@@ -21,7 +21,6 @@ namespace Moovielist.Controllers
             {
                 if (Session["UserID"] != null)
                 {
-                    //a = ctx.Itens.Include(i => i.Livro).ToList();
                     lista = ctx.Itens.Where(i => i.UsuarioID == idUsuario).Include(l => l.Livro).ToList();
                 }
             }
@@ -80,20 +79,12 @@ namespace Moovielist.Controllers
             Session.Clear();
             return RedirectToAction("Login");
         }
-
-        //[HttpPost]
-        //public ActionResult Logout()
-        //{
-        //    Session.Clear();
-
-        //    return RedirectToAction("Login");
-        //}
-
+        
         public ActionResult Logado()
         {
             if (Session["UserID"] != null)
             {
-                return View();
+                return RedirectToAction("Index");
             }
             else
             {
@@ -133,13 +124,11 @@ namespace Moovielist.Controllers
                     using (MeuContexto ctx = new MeuContexto())
                     {
                         item._item.Estado = item.ItemsInDropDown[Int32.Parse(item.SelectedValue)].Text.ToString();
-                        //ctx.Entry(item._item).State = System.Data.Entity.EntityState.Modified;
                         int a = Convert.ToInt32(Session["UserID"]);
                         var result = ctx.Usuarios.Find(a).ListaUsuario.Where(i => i.ItemID == item._item.ItemID).FirstOrDefault();
                         if (result != null)
                         {
                             item._item.LivroID = item._item.Livro.LivroID;
-                            //item._item.Livro = null;
                             result.UsuarioID = a;
                             item._item.UsuarioID = a;
                             ctx.Entry(result).CurrentValues.SetValues(item._item);
@@ -149,7 +138,7 @@ namespace Moovielist.Controllers
                     }
                 }
             }
-            //ADICIONAR MENSAGEM DE ERRO COM OPÇÃO SELECIONE!
+            ModelState.AddModelError("", "Escolha uma opção de status");
             return View(item);
         }
 
@@ -165,6 +154,7 @@ namespace Moovielist.Controllers
             i.Livro = l;
             editarViewModel._item = i;
 
+            ViewBag.Livro = i.Livro.Livro_nome;
             return View(editarViewModel);
         }
 
@@ -178,18 +168,14 @@ namespace Moovielist.Controllers
                     using (MeuContexto ctx = new MeuContexto())
                     {
                         item._item.Estado = item.ItemsInDropDown[Int32.Parse(item.SelectedValue)].Text.ToString();
-                        //item._item.UsuarioID = Convert.ToInt32(Session["UserID"]);
-                        //ctx.Usuarios.Find(Convert.ToInt32(Session["UserID"])).ListaUsuario.Add(item._item);
-                        //ctx.SaveChanges();
 
-                        //ctx.Livros.Add(new Livro { Livro_nome = "AAA", _Genero = ctx.Generos.FirstOrDefault() });
                         ctx.Usuarios.Find(Convert.ToInt32(Session["UserID"])).ListaUsuario.Add(new Item { LivroID = item._item.Livro.LivroID, Estado = item._item.Estado });
                         ctx.SaveChanges();
                         return RedirectToAction("Index");
                     }
                 }
             }
-            //ADICIONAR MENSAGEM DE ERRO COM OPÇÃO SELECIONE!
+            ModelState.AddModelError("", "Escolha uma opção de status");
             return View(item);
         }
 
@@ -206,24 +192,6 @@ namespace Moovielist.Controllers
             editarViewModel._item = i;
 
             return View(editarViewModel);
-
-            //MeuContexto ctx = new MeuContexto();
-            //List<Item> itens = ctx.Itens.Include(i => i.Livro).ToList();
-            //Item itemEncontrado = new Item();
-            //foreach (var item in itens)
-            //{
-            //    if (item.ItemID == id)
-            //    {
-            //        itemEncontrado = item;
-            //    }
-            //}
-            //EditarViewModel editarViewModel = new EditarViewModel();
-            //editarViewModel._item.Estado = itemEncontrado.Estado;
-            //editarViewModel._item.ItemID = itemEncontrado.ItemID;
-            //editarViewModel._item.Livro = itemEncontrado.Livro;
-            //editarViewModel._item.LivroID = itemEncontrado.LivroID;
-            //editarViewModel.Post();
-            //return View(editarViewModel);
         }
 
         [HttpPost]
@@ -241,5 +209,42 @@ namespace Moovielist.Controllers
             }
             return View(item);
         }
+
+        public ActionResult Search()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Search(Usuario usuarioPesquisado)
+        {
+            Usuario usu = new Usuario();
+            using (MeuContexto ctx = new MeuContexto())
+            {
+                usu = ctx.Usuarios.Where(u => u.Username == usuarioPesquisado.Username).FirstOrDefault();
+                if (usu != null)
+                {
+                    return RedirectToAction("UsuarioEncontrado", new { id = usu.UsuarioID });
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Usuário " + usuarioPesquisado.Username + " não encontrado");
+                    return View(usuarioPesquisado);
+                }
+            }
+        }
+
+        public ActionResult UsuarioEncontrado(int? id)
+        {
+            using(MeuContexto ctx = new MeuContexto())
+            {
+                List<Item> i = ctx.Itens.Where(u => u.UsuarioID == id).Include(l => l.Livro).ToList();
+                String nome = ctx.Usuarios.Find(id).Username;
+                ViewBag.Nome = nome;
+                return View(i);
+            }
+        }
+
+
     }
 }

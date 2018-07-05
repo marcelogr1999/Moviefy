@@ -16,16 +16,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Moovielist", "Index", "Usuario", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Booklist", "List", "Livros", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Pesquisar Usuário", "Search", "Usuario")</li>
                     @if (@Session["UserID"] != null)
                     {
                         <li>@Html.ActionLink("Lista Geral", "List", "Livros")</li>
                         <li>@Html.ActionLink("Lista Pessoal", "Index", "Usuario")</li>
                         <li>@Html.ActionLink("Logout", "Logout", "Usuario")</li>
-                        <li>@Html.Label(@Session["UserID"].ToString())</li>
+                        <li style="padding-top:11px; padding-left:28px; font-size:20px; color:lightgray">@Html.DisplayName(@Session["UserName"].ToString())</li>
                     }
                     else
                     {
@@ -33,7 +34,6 @@
                         <li>@Html.ActionLink("Login", "Login", "Usuario")</li>
                         <li>@Html.ActionLink("Registrar", "Registrar", "Usuario")</li>
                     }
-
                 </ul>
             </div>
         </div>
@@ -42,7 +42,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - App Booklist</p>
         </footer>
     </div>
     @Scripts.Render("~/bundles/jquery")

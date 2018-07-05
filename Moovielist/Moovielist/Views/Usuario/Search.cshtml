@@ -1,11 +1,10 @@
 ﻿@model Moovielist.Models.Usuario
 
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Search";
 }
 
-<h2>Login</h2>
-
+<h2>Pesquisar</h2>
 
 @using (Html.BeginForm()) 
 {
@@ -24,25 +23,13 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Pass, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Pass, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Pass, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Logar" class="btn btn-default" />
+                <input type="submit" value="Pesquisar" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Voltar para Lista", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

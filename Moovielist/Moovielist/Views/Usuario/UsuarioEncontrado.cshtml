@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Moovielist.Models.Item>
+
+@{
+    ViewBag.Title = "Lista Pessoal";
+}
+
+<h2>Lista do @Html.Raw(ViewBag.Nome)</h2>
+
+<p>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Livro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Livro.Livro_nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+        </tr>
+    }
+
+</table>
