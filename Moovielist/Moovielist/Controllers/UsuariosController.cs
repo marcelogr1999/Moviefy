@@ -46,7 +46,7 @@ namespace Moovielist.Controllers
                 ModelState.Clear();
                 ViewBag.Message = u.Username + "foi cadastrado";
             }
-            return View();
+            return RedirectToAction("Login");
         }
 
         public ActionResult Login()

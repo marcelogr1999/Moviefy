@@ -11,7 +11,15 @@
         <th>
             @Html.DisplayNameFor(model => model._Livro)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model._Livro._Genero)
+        </th>
+        @if (Session["UserID"] != null)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.Acao)
+            </th>
+        }
     </tr>
 
 @foreach (var item in Model) {
@@ -21,12 +29,15 @@
             @Html.DisplayFor(modelItem => item._Livro.Livro_nome)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item._Livro._Genero.Descricao)
+        </td>
+        <td>
             @if (Session["UserID"] != null)
             {
                 if (item.Acao)
                 {
                     @Html.ActionLink("Editar", "Edit", new { id = item._Livro.LivroID })
-                    <h2></h2>
+                    @Html.Label("|")
                     @Html.ActionLink("Remover", "Delete", new { id = item._Livro.LivroID })
                 }
                 else

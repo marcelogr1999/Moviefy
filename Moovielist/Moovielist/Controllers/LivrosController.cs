@@ -26,13 +26,13 @@ namespace Moovielist.Controllers
 
             using (MeuContexto ctx = new MeuContexto())
             {
-                listaLivros = ctx.Livros.ToList();
+                listaLivros = ctx.Livros.Include(g => g._Genero).ToList();
                 if (Session["UserID"]!= null)
                 {
                     listaItens = retornaListaUsuario();
                     for (int i = 0; i < listaLivros.Count; i++)
                     {
-                        livrosModel.Add(new LivrosModel { Acao = false, _Livro = listaLivros[i]});
+                        livrosModel.Add(new LivrosModel { Acao = false, _Livro = listaLivros[i] });
                         for (int j = 0; j < listaItens.Count; j++)
                         {
                             if (listaItens[j].Livro.LivroID == listaLivros[i].LivroID)
@@ -51,9 +51,7 @@ namespace Moovielist.Controllers
                     }
                     return View(livrosModel);
                 }
-                
             }
-
         }
 
         public List<Item> retornaListaUsuario()
