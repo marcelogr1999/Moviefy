@@ -11,6 +11,8 @@ FUNCIONALIDADES:
 - Alterar status
 - Visualizar lista de amigos
 
+detalhe: É possível pesquisar amigos e visualizar a lista geral sem logar, porém as funcionalidades de adicionar na sua lista não estão disponíveis até que seja feito o login.
+ 
 
 .IMAGENS
 
